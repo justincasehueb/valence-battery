@@ -1,0 +1,19 @@
+from tkinter import *
+
+#This always has to be run to initialize Tkinter
+# window = Tk()
+root = Tk()
+
+#Create anything is 2 steps
+
+#step 1: Create the thing
+# widg = Widget(window, properties..., ...)
+myLabel = Label(root, text="Hello World!")
+
+#step 2: Put it in the window (several methods: pack, grid
+#myLabel.pack()
+
+
+#Finally, you need an event loop
+
+root.mainLoop()
