@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter import messagebox
 from pywinauto.application import Application
 import time
+import csv
 
 #app.ModuleDiagG2.print_control_identifiers()
 
@@ -73,8 +74,39 @@ def CollectSample(id,comPort):
     btn_CloseWindow = app.ModuleDiagG2.child_window(title="Close", control_type="Button").wrapper_object()
     btn_CloseWindow.click_input()
 
+def readCSV():
+    with open('C:/Users/user/Desktop/Valence/Valence_Python/valence-battery/battery.CSV') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                print(f'Column names are {", ".join(row)}')
+                line_count += 1
+            else:
+                print(f'\ttime:{row[0]}:({row[1]}), SN:{row[2]}, #{row[3]}')
+                tmax=[float(row[4]),float(row[5]),float(row[6]),float(row[7]),float(row[8]),float(row[9])]
+                tmax=np.amax(tmax)
+                print(f'\thighest temp:{tmax}')
+                curr=float(row[11])
+
+                vmax=[row[12],row[13],row[14],row[15],row[16],row[17]]
+                i=0
+                for item in vmax:
+                    if (item==""):
+                        vmax[i]=0
+                    else:
+                        vmax[i]=float(item)
+                    i=i+1
+
+                vmax=np.amax(vmax)
+                print(f'\thighest voltage:{vmax}')
+                line_count += 1
+        print(f'Processed {line_count} lines.')
+
 
 btn_getSample = Button(root,text="Collect a Sample",pady=10,command=lambda: CollectSample(e_id.get(),e_com.get()))
+btn_readCSV = Button(root,text="Read CSV",pady=10,command=readCSV)
+
 
 l_id = Label(root,text="Module ID #:")
 l_path = Label(root,text="Log Folder:")
@@ -88,6 +120,7 @@ e_path.grid(row=2,column=1)
 e_com.grid(row=3,column=1)
 
 btn_getSample.grid(row=5,column=0,columnspan=2)
+btn_readCSV.grid(row=6,column=0,columnspan=2)
 
 #TODO: add data visualization
 #TODO: add a subfolder creation feature if they don't already exist.

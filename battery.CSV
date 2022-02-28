@@ -1,0 +1,2 @@
+Time,Model,SN,ID,CellTemp1(0.01C),CellTemp2(0.01C),CellTemp3(0.01C),CellTemp4(0.01C),CellTemp5(0.01C),CellTemp6(0.01C),PCBATemp(0.01C),Current(A),mVcell1,mVcell2,mVcell3,mVcell4,mVcell5,mVcell6,CellDiff(mV),CellDiff Test Limit(mV),CellDiff Status,VcellMin(mV),VcellMin Test Limit(mV),VcellMin Status,VcellMax(mv),ModuleVoltage(mV),SOC(%),FwRev Date,FwRev,Error Code,Balance Status
+02/24/2022 17:54:52.428,U27-12XP Rev. 2,110800431,19,1864,1841,1874,1862,8257,-29183,1720,.01,3343,3345,3341,3344,,,4,10,PASS,3341,3335,PASS,3345,13373,65.1,03/24/2011,1004905A06,No Error!,Enabled
