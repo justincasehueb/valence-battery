@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -19,10 +20,23 @@ def loadConfigs():
         # print(prime_service['prime_numbers'][0])
         # print(prime_service['rest']['url'])
 loadConfigs()
+
+#generates the text in the strings section of the config.YAML file
+def makeYAML():
+    for i in range(1,20):
+        print("\t"+str(i)+":")
+        for j in range((i-1)*4,(i-1)*4+4):
+            print("\t- "+str(j+1))
+
+def makeFiles():
+    path = 'C:/Users/user/Desktop/Valence/Valence_Logs/'
+    for i in range(1,20):
+        # print(path+str(i))
+        if (os.path.isdir(path+str(i))==False):
+            os.mkdir(path+str(i))
+
+
 #app.ModuleDiagG2.print_control_identifiers()
-
-#set up data structures
-
 
 root = Tk() #root is the root window
 root.title("Covalent") #snazzy name
@@ -149,5 +163,7 @@ btn_readCSV.grid(row=6,column=0,columnspan=2)
 #TODO: traverse all individual CSVs and compile a master CSV for pandas
 #TODO: implement a "Strings" Customizer so that IDs can be added to ListBoxes and statistics can be done per string
 #TODO: implement a Frame for the Listboxes that can have ListBoxes PACKED in, with buttons for adding/removing strings
+
+
 
 root.mainloop()
