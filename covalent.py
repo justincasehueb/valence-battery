@@ -7,7 +7,18 @@ from pywinauto.application import Application
 import time
 import csv
 import pandas as pd
+import yaml
 
+configs=None
+
+def loadConfigs():
+    global configs
+    with open('C:/Users/user/Desktop/Valence/Valence_Python/valence-battery/config.yaml', 'r') as file:
+        configs = yaml.safe_load(file)
+        print(str(configs['strings'][1]))
+        # print(prime_service['prime_numbers'][0])
+        # print(prime_service['rest']['url'])
+loadConfigs()
 #app.ModuleDiagG2.print_control_identifiers()
 
 #set up data structures
@@ -15,7 +26,7 @@ import pandas as pd
 
 root = Tk() #root is the root window
 root.title("Covalent") #snazzy name
-root.geometry("500x200") #resize root window
+root.geometry(str(configs['resolution']['x'])+"x"+str(configs['resolution']['y'])) #resize root window
 
 e_id = Entry(root)
 e_path = Entry(root,width=50)
@@ -23,6 +34,10 @@ e_com = Entry(root)
 e_id.insert(0,"19")
 e_path.insert(0,"C:\\Users\\user\\Desktop\\Valence\\Valence_Logs")
 e_com.insert(0,"COM6")
+stringFrame = Frame(root)
+for i in range(5):
+    l1=Listbox(stringFrame,height=5).pack()
+stringFrame.grid(row=7,column=1,columnspan=3)
 
 ## Collects a single sample from the specified module
 # id - integer Module ID number
@@ -79,7 +94,7 @@ def CollectSample(id,comPort):
     btn_CloseWindow.click_input()
 
 def readCSV():
-    global
+    # global
     with open('C:/Users/user/Desktop/Valence/Valence_Python/valence-battery/battery.CSV') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
@@ -131,5 +146,8 @@ btn_readCSV.grid(row=6,column=0,columnspan=2)
 #TODO: add a subfolder creation feature if they don't already exist.
 #TODO: have a subfolder for each module ID's CSV files (..\Valence_Logs\19)
 #TODO: add a config file for critical settings changes
+#TODO: traverse all individual CSVs and compile a master CSV for pandas
+#TODO: implement a "Strings" Customizer so that IDs can be added to ListBoxes and statistics can be done per string
+#TODO: implement a Frame for the Listboxes that can have ListBoxes PACKED in, with buttons for adding/removing strings
 
 root.mainloop()
