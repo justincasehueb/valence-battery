@@ -6,8 +6,12 @@ from tkinter import messagebox
 from pywinauto.application import Application
 import time
 import csv
+import pandas as pd
 
 #app.ModuleDiagG2.print_control_identifiers()
+
+#set up data structures
+
 
 root = Tk() #root is the root window
 root.title("Covalent") #snazzy name
@@ -75,6 +79,7 @@ def CollectSample(id,comPort):
     btn_CloseWindow.click_input()
 
 def readCSV():
+    global
     with open('C:/Users/user/Desktop/Valence/Valence_Python/valence-battery/battery.CSV') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
