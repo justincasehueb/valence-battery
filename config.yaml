@@ -2,30 +2,22 @@
 
 #Set resolution
 resolution:
-  x:          500
-  y:          300
+  x:  500
+  y:  300
 
 #log directory
-log_path:     "C:/Users/user/Desktop/Valence/Valence_Logs"
+#log_path:     "C:/Users/user/Desktop/Valence_Logs"
+#TODO: implement configurable logging directory
+
 
 #String Configuration
-num_strings:  20
+num_strings:  19
 strings:
-# string#n:
-#   - ID#1 (in string#n)
-#   - ID#2
-#   - ID#3
-#   - ID#4
   1:
-  - 1
-  - 2
-  - 3
-  - 4
-  1:
-  - 1
-  - 2
-  - 3
-  - 4
+    - 1
+    - 2
+    - 3
+    - 4
   2:
   - 5
   - 6

@@ -9,14 +9,31 @@ import time
 import csv
 import pandas as pd
 import yaml
+import glob
+
+dir = os.path.dirname(__file__)
+os.chdir(dir)
+# print(os.getcwd())
 
 configs=None
 
+def CombineCSV(folder):
+    os.chdir(dir+"\\Valence_Logs\\"+str(folder))
+    # print(os.getcwd())
+    extension = 'csv'
+    all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
+    #combine all files in the list
+    combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
+    #export to csv
+    combined_csv.to_csv( "combined_csv.csv", index=False, encoding='utf-8-sig')
+# CombineCSV("")
+
+
 def loadConfigs():
     global configs
-    with open('C:/Users/user/Desktop/Valence/Valence_Python/valence-battery/config.yaml', 'r') as file:
+    with open(dir+"\\config.yaml", 'r') as file:
         configs = yaml.safe_load(file)
-        print(str(configs['strings'][1]))
+        # print(str(configs['strings'][1]))
         # print(prime_service['prime_numbers'][0])
         # print(prime_service['rest']['url'])
 loadConfigs()
@@ -28,8 +45,9 @@ def makeYAML():
         for j in range((i-1)*4,(i-1)*4+4):
             print("\t- "+str(j+1))
 
+#creates all the folders for each battery
 def makeFiles():
-    path = 'C:/Users/user/Desktop/Valence/Valence_Logs/'
+    path = dir+"\\Valence_Logs"
     for i in range(1,20):
         # print(path+str(i))
         if (os.path.isdir(path+str(i))==False):
@@ -49,9 +67,19 @@ e_id.insert(0,"19")
 e_path.insert(0,"C:\\Users\\user\\Desktop\\Valence\\Valence_Logs")
 e_com.insert(0,"COM6")
 stringFrame = Frame(root)
-for i in range(5):
-    l1=Listbox(stringFrame,height=5).pack()
-stringFrame.grid(row=7,column=1,columnspan=3)
+
+f=Frame(stringFrame)
+for i in range(configs['num_strings']):
+    if (i%3==0 and i>0):
+        f.pack()
+        f=Frame(stringFrame)
+    l=Label(f,text="String #"+str(i+1),pady=50,padx=40).pack(side='left')
+    l1=Listbox(f,height=5,width=10)
+    # print()
+    for i in configs['strings'][i+1]:
+        l1.insert('end',str(i))
+    l1.pack(side='left')
+stringFrame.grid(row=7,column=0,columnspan=10)
 
 ## Collects a single sample from the specified module
 # id - integer Module ID number
@@ -163,7 +191,7 @@ btn_readCSV.grid(row=6,column=0,columnspan=2)
 #TODO: traverse all individual CSVs and compile a master CSV for pandas
 #TODO: implement a "Strings" Customizer so that IDs can be added to ListBoxes and statistics can be done per string
 #TODO: implement a Frame for the Listboxes that can have ListBoxes PACKED in, with buttons for adding/removing strings
-
+#TODO: having all CSVs save to a single folder and get combined into a master CSV
 
 
 root.mainloop()
