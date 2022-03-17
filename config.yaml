@@ -2,13 +2,17 @@
 
 #Set resolution
 resolution:
-  x:  500
-  y:  300
+  x:  1200
+  y:  1000
 
-#log directory
-#log_path:     "C:/Users/user/Desktop/Valence_Logs"
-#TODO: implement configurable logging directory
+#defaults
+COM: 'COM4'
+ID: 1
+log_path: "C:\\Users\\user\\Desktop\\Valence\\Valence_Logs"
 
+
+#how many columns this program will use to display all strings
+num_string_columns: 5
 
 #String Configuration
 num_strings:  19
@@ -108,3 +112,7 @@ strings:
   - 74
   - 75
   - 76
+
+
+#path to Valence Software if different from default (rare)
+path_to_valence: 'C:\Program Files (x86)\Valence Technology Inc\Valence U-Charge XP Module Diagnostics Software\ModuleDiagG2.exe'
